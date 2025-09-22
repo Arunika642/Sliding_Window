@@ -1,0 +1,25 @@
+class Solution {
+    public int kDistinctChar(String s, int k) {
+        //your code goes here
+        int l=0, distinctChar = 0, maxSubstring = 0;
+        Map<Character, Integer> mpp = new HashMap<>();
+
+        for(int r=0; r<s.length();r++)
+        {
+            mpp.put(s.charAt(r), mpp.getOrDefault(s.charAt(r), 0) + 1);
+
+            while(mpp.size() > k)
+            {
+                mpp.put(s.charAt(l), mpp.get(s.charAt(l))-1);
+                if(mpp.get(s.charAt(l))==0)
+                {
+                    mpp.remove(s.charAt(l));
+                }
+                l++;
+            }
+
+           maxSubstring = Math.max(maxSubstring,r-l+1);
+        }
+        return maxSubstring;
+    }
+}
